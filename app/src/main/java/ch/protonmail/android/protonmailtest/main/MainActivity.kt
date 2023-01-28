@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.title = getString(R.string.app_name)
         initTabs()
-        viewModel.fetchTasks(this)
+        viewModel.fetchTasks()
     }
 
     private fun initTabs() {

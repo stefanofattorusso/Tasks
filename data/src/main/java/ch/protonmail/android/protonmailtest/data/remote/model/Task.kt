@@ -1,5 +1,6 @@
 package ch.protonmail.android.protonmailtest.data.remote.model
 
+import ch.protonmail.android.protonmailtest.domain.model.TaskDomain
 import com.google.gson.annotations.SerializedName
 
 data class Task(
@@ -16,3 +17,7 @@ data class Task(
     @SerializedName("image")
     val image: String
 )
+
+fun Task.toDomain(): TaskDomain {
+    return TaskDomain()
+}

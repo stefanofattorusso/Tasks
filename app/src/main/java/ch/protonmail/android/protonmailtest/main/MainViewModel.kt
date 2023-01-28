@@ -1,24 +1,33 @@
 package ch.protonmail.android.protonmailtest.main
 
-import android.os.AsyncTask
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import ch.protonmail.android.protonmailtest.common.ResultData
 import ch.protonmail.android.protonmailtest.data.remote.model.Task
-import kotlinx.serialization.builtins.ListSerializer
-import kotlinx.serialization.json.Json
-import java.net.HttpURLConnection
-import java.net.URL
+import ch.protonmail.android.protonmailtest.domain.usecase.GetTasksUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-@Suppress("DEPRECATION")
-class MainViewModel : ViewModel() {
+@HiltViewModel
+class MainViewModel @Inject constructor(
+    private val getTasksUseCase: GetTasksUseCase
+) : ViewModel() {
 
     val tasks = MutableLiveData<List<Task>>()
 
-    fun fetchTasks(activity: AppCompatActivity) {
+    fun fetchTasks() {
+        viewModelScope.launch {
+            val result = getTasksUseCase.getTasks()
+            if (result is ResultData.Success) {
+                Log.d("RESULT", result.toString())
+            }
+        }
+    }
+
+/*    fun fetchTasks(activity: AppCompatActivity) {
         activity.lifecycle.addObserver(object : LifecycleObserver {
             @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
             fun onResume() {
@@ -26,9 +35,9 @@ class MainViewModel : ViewModel() {
                 tasks.postValue(list)
             }
         })
-    }
+    }*/
 
-    class FetchDataFromServerTask : AsyncTask<String, String, List<Task>>() {
+/*    class FetchDataFromServerTask : AsyncTask<String, String, List<Task>>() {
         override fun doInBackground(vararg p0: String?): List<Task> {
             val url = URL("https://proton-android-testcloud.europe-west1.firebasedatabase.app/tasks.json")
             val httpURLConnection = url.openConnection() as HttpURLConnection
@@ -42,5 +51,5 @@ class MainViewModel : ViewModel() {
             }
             return Json.decodeFromString(ListSerializer(Task.serializer()), response)
         }
-    }
+    }*/
 }
