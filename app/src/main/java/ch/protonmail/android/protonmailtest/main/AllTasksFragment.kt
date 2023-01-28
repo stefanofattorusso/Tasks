@@ -27,7 +27,7 @@ class AllTasksFragment : Fragment() {
         recycler.adapter = adapter
         recycler.layoutManager = layoutManager
         viewModel.tasks.observe(viewLifecycleOwner) {
-            adapter.submitData(it)
+            adapter.submitList(it)
         }
 
         return binding.root

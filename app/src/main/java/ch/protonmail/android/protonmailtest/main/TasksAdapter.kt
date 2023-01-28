@@ -2,12 +2,14 @@ package ch.protonmail.android.protonmailtest.main
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import ch.protonmail.android.protonmailtest.data.remote.model.Task
 import ch.protonmail.android.protonmailtest.databinding.ItemTaskBinding
+import ch.protonmail.android.protonmailtest.main.model.TaskModel
 
-class TasksAdapter : RecyclerView.Adapter<TasksAdapter.TaskViewHolder>() {
-    private var data: List<Task> = listOf()
+class TasksAdapter : ListAdapter<TaskModel, TasksAdapter.TaskViewHolder>(TaskItemDiffCallback()) {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         return TaskViewHolder(
             ItemTaskBinding.inflate(
@@ -19,22 +21,21 @@ class TasksAdapter : RecyclerView.Adapter<TasksAdapter.TaskViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) = with(holder.binding) {
-        data[position].let {
-            title.text = it.encryptedTitle
-            description.text = it.encryptedDescription
-            creationDate.text = it.creationDate
-            dueDate.text = it.dueDate
+        getItem(position).let {model ->
+            title.text = model.title
+            description.text = model.description
+            creationDate.text = model.creationDate
+            dueDate.text = model.dueDate
         }
     }
 
-    override fun getItemCount(): Int {
-        return data.count()
-    }
-
-    fun submitData(list: List<Task>) {
-        data = list
-        notifyDataSetChanged()
-    }
-
     class TaskViewHolder(val binding: ItemTaskBinding) : RecyclerView.ViewHolder(binding.root)
+}
+
+class TaskItemDiffCallback : DiffUtil.ItemCallback<TaskModel>() {
+    override fun areItemsTheSame(oldItem: TaskModel, newItem: TaskModel): Boolean =
+        oldItem.id == newItem.id
+
+    override fun areContentsTheSame(oldItem: TaskModel, newItem: TaskModel): Boolean =
+        oldItem == newItem
 }

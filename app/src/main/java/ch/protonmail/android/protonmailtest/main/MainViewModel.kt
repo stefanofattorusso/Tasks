@@ -1,12 +1,13 @@
 package ch.protonmail.android.protonmailtest.main
 
-import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ch.protonmail.android.protonmailtest.common.ResultData
-import ch.protonmail.android.protonmailtest.data.remote.model.Task
 import ch.protonmail.android.protonmailtest.domain.usecase.GetTasksUseCase
+import ch.protonmail.android.protonmailtest.main.model.TaskModel
+import ch.protonmail.android.protonmailtest.main.model.toModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -16,13 +17,14 @@ class MainViewModel @Inject constructor(
     private val getTasksUseCase: GetTasksUseCase
 ) : ViewModel() {
 
-    val tasks = MutableLiveData<List<Task>>()
+    private val _tasks = MutableLiveData<List<TaskModel>>()
+    val tasks: LiveData<List<TaskModel>> = _tasks
 
     fun fetchTasks() {
         viewModelScope.launch {
             val result = getTasksUseCase.getTasks()
             if (result is ResultData.Success) {
-                Log.d("RESULT", result.toString())
+                _tasks.postValue(result.value.map { domain -> domain.toModel() })
             }
         }
     }
