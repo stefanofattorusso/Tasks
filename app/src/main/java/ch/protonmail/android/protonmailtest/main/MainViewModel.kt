@@ -1,4 +1,4 @@
-package ch.protonmail.android.protonmailtest
+package ch.protonmail.android.protonmailtest.main
 
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +7,7 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ViewModel
+import ch.protonmail.android.protonmailtest.data.remote.model.Task
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json
 import java.net.HttpURLConnection

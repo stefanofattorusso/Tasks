@@ -1,9 +1,9 @@
-package ch.protonmail.android.protonmailtest
+package ch.protonmail.android.protonmailtest.main
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import ch.protonmail.android.protonmailtest.data.remote.model.Task
 import ch.protonmail.android.protonmailtest.databinding.ItemTaskBinding
 
 class TasksAdapter : RecyclerView.Adapter<TasksAdapter.TaskViewHolder>() {

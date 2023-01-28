@@ -29,11 +29,9 @@ subprojects {
                     targetSdkVersion rootProject.ext.targetSdkVersion
                 }
 
-                android {
-                    buildTypes {
-                        release { }
-                        debug { }
-                    }
+                buildTypes {
+                    release { }
+                    debug { }
                 }
 
                 compileOptions {

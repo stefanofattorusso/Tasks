@@ -1,4 +1,4 @@
-package ch.protonmail.android.protonmailtest
+package ch.protonmail.android.protonmailtest.main
 
 import android.content.Context
 import androidx.fragment.app.Fragment

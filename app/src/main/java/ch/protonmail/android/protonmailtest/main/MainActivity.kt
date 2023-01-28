@@ -1,8 +1,9 @@
-package ch.protonmail.android.protonmailtest
+package ch.protonmail.android.protonmailtest.main
 
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import ch.protonmail.android.protonmailtest.R
 import ch.protonmail.android.protonmailtest.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 

@@ -1,11 +1,10 @@
-package ch.protonmail.android.protonmailtest
+package ch.protonmail.android.protonmailtest.detail
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Button
-import android.widget.TextView
+import ch.protonmail.android.protonmailtest.R
 
 class DetailsActivity : AppCompatActivity() {
 
