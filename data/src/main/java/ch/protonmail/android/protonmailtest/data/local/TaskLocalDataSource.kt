@@ -9,6 +9,10 @@ class TaskLocalDataSource @Inject constructor(
     private val taskDao: TaskDao,
 ) {
 
+    fun getTask(id: String): Flow<TaskEntity> {
+        return taskDao.get(id)
+    }
+
     fun getTasks(): Flow<List<TaskEntity>> {
         return taskDao.getAll()
     }

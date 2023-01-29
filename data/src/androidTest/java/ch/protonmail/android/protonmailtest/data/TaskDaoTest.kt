@@ -25,8 +25,10 @@ class TaskDaoTest {
     private lateinit var taskDao: TaskDao
     private lateinit var db: TaskDatabase
 
+    private val entityId = "2"
+
     private val entity = TaskEntity(
-        "2",
+        entityId,
         "2023-12-23'T'18:20:24",
         "2023-12-23'T'18:20:24",
         "encryptedDescription",
@@ -71,5 +73,15 @@ class TaskDaoTest {
         val result = taskDao.getAll().first()
 
         assertTrue(result.first().imageDownloaded)
+    }
+
+    @Test
+    fun getTask() = runTest {
+
+        taskDao.insertAll(listOf(entity))
+
+        val result = taskDao.get(entityId)
+
+        assertEquals(entityId, result.first().id)
     }
 }

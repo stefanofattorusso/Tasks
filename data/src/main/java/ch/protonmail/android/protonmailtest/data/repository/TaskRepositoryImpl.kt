@@ -20,6 +20,12 @@ class TaskRepositoryImpl @Inject constructor(
     private val cryptoLib: CryptoLib,
 ) : TaskRepository {
 
+    override fun getTask(id: String): Flow<TaskDomain> {
+        return localSource.getTask(id)
+            .map { task -> task.toDomain(cryptoLib) }
+            .flowOn(ioDispatcher)
+    }
+
     override fun getTasks(): Flow<List<TaskDomain>> {
         return localSource.getTasks()
             .onStart {

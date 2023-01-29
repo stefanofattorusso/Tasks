@@ -32,6 +32,15 @@ class TaskRepositoryTest {
     }
 
     @Test
+    fun `When getTask is called, Then retrieve the task from the db`() =
+        runTest(dispatcher.scheduler) {
+
+            repository.getTask("1")
+
+            coVerify { localSource.getTask(any()) }
+        }
+
+    @Test
     fun `When getTasks is called, Then retrieve the tasks from the db and launch a network call`() =
         runTest(dispatcher.scheduler) {
 

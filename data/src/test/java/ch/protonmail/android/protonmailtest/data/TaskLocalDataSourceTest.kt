@@ -20,6 +20,14 @@ class TaskLocalDataSourceTest {
     private val dataSource: TaskLocalDataSource by lazy { TaskLocalDataSource(taskDao) }
 
     @Test
+    fun `When getTask is called, Then call the method on the dao`() = runTest(dispatcher.scheduler) {
+
+        dataSource.getTask("1")
+
+        coVerify { taskDao.get(any()) }
+    }
+
+    @Test
     fun `When getTasks is called, Then call the method on the dao`() = runTest(dispatcher.scheduler) {
 
         dataSource.getTasks()
@@ -30,7 +38,7 @@ class TaskLocalDataSourceTest {
     @Test
     fun `When saveTasks is called, Then call the method on the dao`() = runTest(dispatcher.scheduler) {
 
-        dataSource.saveTasks(listOf(TaskEntity("", "", "", "", "", "", 0)))
+        dataSource.saveTasks(listOf(TaskEntity("", "", "", "", "", "", false)))
 
         coVerify { taskDao.insertAll(any()) }
     }

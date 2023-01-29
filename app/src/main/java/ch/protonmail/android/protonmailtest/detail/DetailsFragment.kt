@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import ch.protonmail.android.protonmailtest.R
 import ch.protonmail.android.protonmailtest.databinding.FragmentDetailsBinding
 import ch.protonmail.android.protonmailtest.main.model.TaskModel
 import com.bumptech.glide.Glide
@@ -65,7 +66,7 @@ class DetailsFragment : Fragment() {
     }
 
     private fun handleErrorState() {
-        Snackbar.make(binding.root, "Ops! An error has occurred", Snackbar.LENGTH_LONG).show()
+        Snackbar.make(binding.root, getString(R.string.generic_error), Snackbar.LENGTH_LONG).show()
     }
 
     companion object {
