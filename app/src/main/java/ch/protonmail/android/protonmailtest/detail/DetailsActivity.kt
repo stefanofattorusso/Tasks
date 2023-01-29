@@ -1,18 +1,21 @@
 package ch.protonmail.android.protonmailtest.detail
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.commit
 import ch.protonmail.android.protonmailtest.R
+import dagger.hilt.android.AndroidEntryPoint
 
-class DetailsActivity : AppCompatActivity() {
+@AndroidEntryPoint
+class DetailsActivity : AppCompatActivity(R.layout.activity_details) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_details)
-        findViewById<Button>(R.id.download).setOnClickListener {
-            Log.d("DetailActivity", "Downloading the image...")
+        if (savedInstanceState == null) {
+            supportFragmentManager.commit {
+                setReorderingAllowed(true)
+                replace(R.id.container, DetailsFragment::class.java, intent.extras)
+            }
         }
     }
 }

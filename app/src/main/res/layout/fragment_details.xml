@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="@string/task_image_content_desc"
+        android:src="@drawable/image_background"
+        app:layout_constraintDimensionRatio="H,16:9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:textAppearance="@style/Typography.Headline"
+        android:textColor="@color/darkGray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/image"
+        tools:text="ProtonVPN" />
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:textAppearance="@style/Typography.Body2Regular"
+        android:textColor="@color/mediumGray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/title"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        tools:text="Decrypted description" />
+
+    <TextView
+        android:id="@+id/created_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:drawablePadding="9dp"
+        android:text="@string/created_label"
+        android:textAppearance="@style/Typography.Body2Medium"
+        android:textColor="@color/darkGray"
+        app:drawableStartCompat="@drawable/ic_calendar"
+        app:layout_constraintStart_toStartOf="@id/title"
+        app:layout_constraintTop_toBottomOf="@id/description" />
+
+    <TextView
+        android:id="@+id/creationDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textAppearance="@style/Typography.Body2Regular"
+        android:textColor="@color/darkGray"
+        app:layout_constraintBaseline_toBaselineOf="@id/created_label"
+        app:layout_constraintStart_toEndOf="@id/created_label"
+        tools:text="Creation date" />
+
+    <TextView
+        android:id="@+id/due_date_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:drawablePadding="9dp"
+        android:text="@string/due_label"
+        android:textAppearance="@style/Typography.Body2Medium"
+        android:textColor="@color/darkGray"
+        app:drawableStartCompat="@drawable/ic_bell"
+        app:layout_constraintStart_toStartOf="@id/title"
+        app:layout_constraintTop_toBottomOf="@id/created_label" />
+
+    <TextView
+        android:id="@+id/dueDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textAppearance="@style/Typography.Body2Regular"
+        android:textColor="@color/darkGray"
+        app:layout_constraintBaseline_toBaselineOf="@id/due_date_label"
+        app:layout_constraintStart_toEndOf="@id/created_label"
+        tools:text="Due date" />
+
+    <Button
+        android:id="@+id/download_button"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="@color/purple"
+        android:text="@string/download_image"
+        android:textAllCaps="false"
+        android:textAppearance="@style/Typography.Body1Regular"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

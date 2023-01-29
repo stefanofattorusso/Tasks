@@ -13,6 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import ch.protonmail.android.protonmailtest.databinding.FragmentUpcomingBinding
 import ch.protonmail.android.protonmailtest.detail.DetailsActivity
+import ch.protonmail.android.protonmailtest.detail.DetailsFragment.Companion.TASK_ID
 import ch.protonmail.android.protonmailtest.domain.model.TaskDomain
 import ch.protonmail.android.protonmailtest.main.MainViewModel
 import ch.protonmail.android.protonmailtest.main.TasksAdapter
@@ -68,7 +69,7 @@ class UpcomingFragment : Fragment() {
 
     private fun navigateToTaskDetail(task: TaskModel) {
         val intent = Intent(requireContext(), DetailsActivity::class.java).apply {
-            putExtras(bundleOf("ID" to task.id))
+            putExtras(bundleOf(TASK_ID to task.id))
         }
         activity?.startActivity(intent)
     }
