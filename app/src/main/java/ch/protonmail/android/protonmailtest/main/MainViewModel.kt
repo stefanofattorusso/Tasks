@@ -1,14 +1,16 @@
 package ch.protonmail.android.protonmailtest.main
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import ch.protonmail.android.protonmailtest.common.ResultData
 import ch.protonmail.android.protonmailtest.domain.usecase.GetTasksUseCase
 import ch.protonmail.android.protonmailtest.main.model.TaskModel
 import ch.protonmail.android.protonmailtest.main.model.toModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,10 +24,10 @@ class MainViewModel @Inject constructor(
 
     fun fetchTasks() {
         viewModelScope.launch {
-            val result = getTasksUseCase.getTasks()
-            if (result is ResultData.Success) {
-                _tasks.postValue(result.value.map { domain -> domain.toModel() })
-            }
+            getTasksUseCase.getTasks()
+                .catch { Log.e("TASK", it.localizedMessage ?: "An error occurred!") }
+                .map { it.map { domain -> domain.toModel() } }
+                .collect { _tasks.postValue(it) }
         }
     }
 

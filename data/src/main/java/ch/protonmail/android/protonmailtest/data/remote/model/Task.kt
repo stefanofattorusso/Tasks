@@ -1,5 +1,6 @@
 package ch.protonmail.android.protonmailtest.data.remote.model
 
+import ch.protonmail.android.protonmailtest.data.local.entity.TaskEntity
 import ch.protonmail.android.protonmailtest.domain.model.TaskDomain
 import com.google.gson.annotations.SerializedName
 import java.text.SimpleDateFormat
@@ -28,6 +29,17 @@ fun Task.toDomain(): TaskDomain {
         description = encryptedDescription ?: "",
         title = encryptedTitle ?: "",
         id = id ?: "",
+        image = image ?: ""
+    )
+}
+
+fun Task.toEntity(): TaskEntity {
+    return TaskEntity(
+        id = id ?: "",
+        creationDate = creationDate ?: "",
+        dueDate = dueDate ?: "",
+        encryptedDescription = encryptedDescription ?: "",
+        encryptedTitle = encryptedTitle ?: "",
         image = image ?: ""
     )
 }

@@ -4,7 +4,7 @@ import ch.protonmail.android.protonmailtest.data.remote.model.Task
 import ch.protonmail.android.protonmailtest.data.remote.network.TaskService
 import javax.inject.Inject
 
-class TaskDataSource @Inject constructor(
+class TaskNetworkDataSource @Inject constructor(
     private val service: TaskService
 ) {
 
