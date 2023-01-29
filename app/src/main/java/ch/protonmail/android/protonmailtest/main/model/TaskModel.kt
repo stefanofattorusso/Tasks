@@ -11,16 +11,18 @@ data class TaskModel(
     val title: String,
     val image: String,
     val id: String,
+    val imageDownloaded: Boolean
 )
 
 fun TaskDomain.toModel(): TaskModel {
     val dateFormatter = SimpleDateFormat("yyyy-MM-dd • HH:mm", Locale.getDefault())
     return TaskModel(
+        id = id,
         creationDate = dateFormatter.format(creationDate),
         dueDate = dateFormatter.format(dueDate),
         description = description,
         title = title,
         image = image,
-        id = id,
+        imageDownloaded = imageDownloaded
     )
 }

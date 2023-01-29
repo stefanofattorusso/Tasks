@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ch.protonmail.android.protonmailtest.databinding.ItemTaskBinding
 import ch.protonmail.android.protonmailtest.main.model.TaskModel
+import com.bumptech.glide.Glide
 
 class TasksAdapter : ListAdapter<TaskModel, TasksAdapter.TaskViewHolder>(TaskItemDiffCallback()) {
 
@@ -20,16 +21,26 @@ class TasksAdapter : ListAdapter<TaskModel, TasksAdapter.TaskViewHolder>(TaskIte
         )
     }
 
-    override fun onBindViewHolder(holder: TaskViewHolder, position: Int) = with(holder.binding) {
-        getItem(position).let {model ->
-            title.text = model.title
-            description.text = model.description
-            creationDate.text = model.creationDate
-            dueDate.text = model.dueDate
-        }
+    override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
+        holder.bindTo(getItem(position))
     }
 
-    class TaskViewHolder(val binding: ItemTaskBinding) : RecyclerView.ViewHolder(binding.root)
+    class TaskViewHolder(private val binding: ItemTaskBinding) : RecyclerView.ViewHolder(binding.root) {
+
+        fun bindTo(model: TaskModel) {
+            with(binding) {
+                title.text = model.title
+                description.text = model.description
+                creationDate.text = model.creationDate
+                dueDate.text = model.dueDate
+                if (model.imageDownloaded) {
+                    Glide.with(root.context).load(model.image).into(image)
+                } else {
+                    Glide.with(root.context).clear(image)
+                }
+            }
+        }
+    }
 }
 
 class TaskItemDiffCallback : DiffUtil.ItemCallback<TaskModel>() {

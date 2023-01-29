@@ -1,11 +1,57 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@color/white</item>
+        <item name="colorAccent">@color/darkGray</item>
+        <item name="android:windowLightStatusBar">true</item>
+
+        <item name="android:windowBackground">@color/white</item>
+
+        <item name="actionBarStyle">@style/Theme.MyApp.ActionBar</item>
     </style>
 
+    <style name="Theme.MyApp.ActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item name="elevation">0dp</item>
+    </style>
+
+    <!--    Typography  -->
+
+    <style name="Typography.Headline" parent="TextAppearance.MaterialComponents.Headline1">
+        <item name="android:textSize">20sp</item>
+        <item name="lineHeight">24dp</item>
+        <item name="android:letterSpacing">0.015</item>
+        <item name="fontFamily">sans-serif</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Typography.Body1Medium" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textSize">16sp</item>
+        <item name="lineHeight">24dp</item>
+        <item name="android:letterSpacing">0.05</item>
+        <item name="fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="Typography.Body1Regular" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textSize">16sp</item>
+        <item name="lineHeight">24dp</item>
+        <item name="android:letterSpacing">0.05</item>
+        <item name="fontFamily">sans-serif</item>
+    </style>
+
+    <style name="Typography.Body2Medium" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textSize">14sp</item>
+        <item name="lineHeight">20dp</item>
+        <item name="android:letterSpacing">0.025</item>
+        <item name="fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="Typography.Body2Regular" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textSize">14sp</item>
+        <item name="lineHeight">20dp</item>
+        <item name="android:letterSpacing">0.025</item>
+        <item name="fontFamily">sans-serif</item>
+    </style>
 </resources>
