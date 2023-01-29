@@ -11,6 +11,8 @@ import com.bumptech.glide.Glide
 
 class TasksAdapter : ListAdapter<TaskModel, TasksAdapter.TaskViewHolder>(TaskItemDiffCallback()) {
 
+    var onClickListener: (TaskModel) -> Unit = {}
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         return TaskViewHolder(
             ItemTaskBinding.inflate(
@@ -25,7 +27,7 @@ class TasksAdapter : ListAdapter<TaskModel, TasksAdapter.TaskViewHolder>(TaskIte
         holder.bindTo(getItem(position))
     }
 
-    class TaskViewHolder(private val binding: ItemTaskBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class TaskViewHolder(private val binding: ItemTaskBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bindTo(model: TaskModel) {
             with(binding) {
@@ -38,6 +40,7 @@ class TasksAdapter : ListAdapter<TaskModel, TasksAdapter.TaskViewHolder>(TaskIte
                 } else {
                     Glide.with(root.context).clear(image)
                 }
+                itemView.setOnClickListener { onClickListener(model) }
             }
         }
     }
