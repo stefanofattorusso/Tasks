@@ -15,4 +15,7 @@ interface TaskDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(monthEntities: List<TaskEntity>)
+
+    @Query("UPDATE task SET imageDownloaded = 1 WHERE id = :id")
+    suspend fun updateTaskWithImageDownloaded(id: String)
 }

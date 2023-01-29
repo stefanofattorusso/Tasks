@@ -42,4 +42,12 @@ class TaskRepositoryTest {
 
             coVerify { localSource.getTasks() }
         }
+
+    @Test
+    fun `When setImageDownloaded is called, Then verify that the local source is called`() = runTest(dispatcher.scheduler) {
+
+        repository.setImageDownloaded("1")
+
+        coVerify { localSource.setImageDownloaded(any()) }
+    }
 }

@@ -16,6 +16,7 @@ data class TaskEntity(
     @ColumnInfo val encryptedDescription: String,
     @ColumnInfo val encryptedTitle: String,
     @ColumnInfo val image: String,
+    @ColumnInfo val imageDownloaded: Boolean,
 )
 
 fun TaskEntity.toDomain(cryptoLib: CryptoLib): TaskDomain {
@@ -25,6 +26,7 @@ fun TaskEntity.toDomain(cryptoLib: CryptoLib): TaskDomain {
         dueDate = dueDate.decrypt(cryptoLib).parseTaskDate(),
         description = encryptedDescription.decrypt(cryptoLib),
         title = encryptedTitle.decrypt(cryptoLib),
-        image = image.decrypt(cryptoLib)
+        image = image.decrypt(cryptoLib),
+        imageDownloaded = imageDownloaded
     )
 }

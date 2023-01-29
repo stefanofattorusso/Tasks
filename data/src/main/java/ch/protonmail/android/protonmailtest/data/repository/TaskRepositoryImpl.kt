@@ -34,4 +34,8 @@ class TaskRepositoryImpl @Inject constructor(
             .map { list -> list.map { task -> task.toDomain(cryptoLib) } }
             .flowOn(ioDispatcher)
     }
+
+    override suspend fun setImageDownloaded(id: String) {
+        localSource.setImageDownloaded(id)
+    }
 }

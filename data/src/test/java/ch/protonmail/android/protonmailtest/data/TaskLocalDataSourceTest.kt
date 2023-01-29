@@ -30,8 +30,16 @@ class TaskLocalDataSourceTest {
     @Test
     fun `When saveTasks is called, Then call the method on the dao`() = runTest(dispatcher.scheduler) {
 
-        dataSource.saveTasks(listOf(TaskEntity("", "", "", "", "", "")))
+        dataSource.saveTasks(listOf(TaskEntity("", "", "", "", "", "", 0)))
 
         coVerify { taskDao.insertAll(any()) }
+    }
+
+    @Test
+    fun `When setImageDownloaded is called, Then verify that the dao's method is called`() = runTest(dispatcher.scheduler) {
+
+        dataSource.setImageDownloaded("1")
+
+        coVerify { taskDao.updateTaskWithImageDownloaded(any()) }
     }
 }

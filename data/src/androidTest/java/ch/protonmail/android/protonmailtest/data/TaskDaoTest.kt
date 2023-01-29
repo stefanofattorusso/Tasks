@@ -8,6 +8,7 @@ import ch.protonmail.android.protonmailtest.data.local.dao.TaskDao
 import ch.protonmail.android.protonmailtest.data.local.database.TaskDatabase
 import ch.protonmail.android.protonmailtest.data.local.entity.TaskEntity
 import junit.framework.TestCase.assertEquals
+import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
@@ -25,12 +26,13 @@ class TaskDaoTest {
     private lateinit var db: TaskDatabase
 
     private val entity = TaskEntity(
-        "1",
+        "2",
         "2023-12-23'T'18:20:24",
         "2023-12-23'T'18:20:24",
         "encryptedDescription",
         "encryptedTitle",
-        ""
+        "",
+        false
     )
 
     @Before
@@ -56,6 +58,18 @@ class TaskDaoTest {
 
         val result = taskDao.getAll().first()
 
-        assertEquals("1", result.first().id)
+        assertEquals("2", result.first().id)
+    }
+
+    @Test
+    fun updateTaskWithDownloadedImage() = runTest {
+
+        taskDao.insertAll(listOf(entity))
+
+        taskDao.updateTaskWithImageDownloaded("2")
+
+        val result = taskDao.getAll().first()
+
+        assertTrue(result.first().imageDownloaded)
     }
 }

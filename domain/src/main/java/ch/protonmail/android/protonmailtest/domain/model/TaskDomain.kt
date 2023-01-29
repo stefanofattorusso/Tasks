@@ -8,5 +8,6 @@ data class TaskDomain(
     val description: String,
     val title: String,
     val id: String,
-    val image: String
+    val image: String,
+    val imageDownloaded: Boolean,
 )

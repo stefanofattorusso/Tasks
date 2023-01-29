@@ -6,4 +6,6 @@ import kotlinx.coroutines.flow.Flow
 interface TaskRepository {
 
     fun getTasks(): Flow<List<TaskDomain>>
+
+    suspend fun setImageDownloaded(id: String)
 }

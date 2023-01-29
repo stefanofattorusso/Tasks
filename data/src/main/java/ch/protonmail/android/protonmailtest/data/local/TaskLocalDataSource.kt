@@ -16,4 +16,8 @@ class TaskLocalDataSource @Inject constructor(
     suspend fun saveTasks(list: List<TaskEntity>) {
         taskDao.insertAll(list)
     }
+
+    suspend fun setImageDownloaded(id: String) {
+        taskDao.updateTaskWithImageDownloaded(id)
+    }
 }

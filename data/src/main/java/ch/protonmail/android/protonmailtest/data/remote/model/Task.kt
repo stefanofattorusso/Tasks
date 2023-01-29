@@ -29,5 +29,6 @@ fun Task.toEntity(cryptoLib: CryptoLib): TaskEntity {
         encryptedDescription = encryptedDescription ?: "",
         encryptedTitle = encryptedTitle ?: "",
         image = image.encrypt(cryptoLib),
+        imageDownloaded = false
     )
 }
