@@ -7,16 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import ch.protonmail.android.protonmailtest.CryptoHelper
 import ch.protonmail.android.protonmailtest.databinding.FragmentAllTasksBinding
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class AllTasksFragment : Fragment() {
 
-    @Inject
-    lateinit var cryptoHelper: CryptoHelper
     private val binding by lazy { FragmentAllTasksBinding.inflate(layoutInflater) }
     private val viewModel: MainViewModel by activityViewModels()
 

@@ -1,9 +1,7 @@
 package ch.protonmail.android.protonmailtest.data.remote.model
 
 import ch.protonmail.android.protonmailtest.data.local.entity.TaskEntity
-import ch.protonmail.android.protonmailtest.domain.model.TaskDomain
 import com.google.gson.annotations.SerializedName
-import java.text.SimpleDateFormat
 import java.util.*
 
 data class Task(
@@ -20,18 +18,6 @@ data class Task(
     @SerializedName("image")
     val image: String?
 )
-
-fun Task.toDomain(): TaskDomain {
-    val dateFormatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
-    return TaskDomain(
-        creationDate = dateFormatter.parse(creationDate ?: "") ?: Date(),
-        dueDate = dateFormatter.parse(dueDate ?: "") ?: Date(),
-        description = encryptedDescription ?: "",
-        title = encryptedTitle ?: "",
-        id = id ?: "",
-        image = image ?: ""
-    )
-}
 
 fun Task.toEntity(): TaskEntity {
     return TaskEntity(
