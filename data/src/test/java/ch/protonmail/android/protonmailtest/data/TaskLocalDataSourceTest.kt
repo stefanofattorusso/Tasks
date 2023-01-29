@@ -2,7 +2,7 @@ package ch.protonmail.android.protonmailtest.data
 
 import ch.protonmail.android.protonmailtest.data.local.TaskLocalDataSource
 import ch.protonmail.android.protonmailtest.data.local.dao.TaskDao
-import ch.protonmail.android.protonmailtest.data.remote.model.Task
+import ch.protonmail.android.protonmailtest.data.local.entity.TaskEntity
 import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -30,7 +30,7 @@ class TaskLocalDataSourceTest {
     @Test
     fun `When saveTasks is called, Then call the method on the dao`() = runTest(dispatcher.scheduler) {
 
-        dataSource.saveTasks(listOf(Task("", "", "", "", "", "")))
+        dataSource.saveTasks(listOf(TaskEntity("", "", "", "", "", "")))
 
         coVerify { taskDao.insertAll(any()) }
     }

@@ -3,9 +3,10 @@ package ch.protonmail.android.protonmailtest.data.local.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import ch.protonmail.android.crypto.CryptoLib
+import ch.protonmail.android.protonmailtest.commonandroid.decrypt
+import ch.protonmail.android.protonmailtest.commonandroid.parseTaskDate
 import ch.protonmail.android.protonmailtest.domain.model.TaskDomain
-import java.text.SimpleDateFormat
-import java.util.*
 
 @Entity(tableName = "task")
 data class TaskEntity(
@@ -17,14 +18,13 @@ data class TaskEntity(
     @ColumnInfo val image: String,
 )
 
-fun TaskEntity.toDomain(): TaskDomain {
-    val dateFormatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+fun TaskEntity.toDomain(cryptoLib: CryptoLib): TaskDomain {
     return TaskDomain(
-        creationDate = dateFormatter.parse(creationDate) ?: Date(),
-        dueDate = dateFormatter.parse(dueDate) ?: Date(),
-        description = encryptedDescription,
-        title = encryptedTitle,
         id = id,
-        image = image
+        creationDate = creationDate.decrypt(cryptoLib).parseTaskDate(),
+        dueDate = dueDate.decrypt(cryptoLib).parseTaskDate(),
+        description = encryptedDescription.decrypt(cryptoLib),
+        title = encryptedTitle.decrypt(cryptoLib),
+        image = image.decrypt(cryptoLib)
     )
 }

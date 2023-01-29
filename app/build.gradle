@@ -32,7 +32,6 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
-    implementation files('../libs/crypto.aar')
     implementation project(":data")
     implementation project(":domain")
     implementation project(":common")

@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import ch.protonmail.android.crypto.CryptoLib
 import ch.protonmail.android.protonmailtest.commonandroid.DefaultDispatcher
 import ch.protonmail.android.protonmailtest.domain.usecase.GetTasksUseCase
 import ch.protonmail.android.protonmailtest.main.model.TaskModel
@@ -23,7 +22,6 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     @DefaultDispatcher private val default: CoroutineDispatcher = Dispatchers.Default,
     private val getTasksUseCase: GetTasksUseCase,
-    private val cryptoLib: CryptoLib,
 ) : ViewModel() {
 
     private val _tasks = MutableLiveData<List<TaskModel>>()
@@ -32,7 +30,7 @@ class MainViewModel @Inject constructor(
     fun fetchTasks() {
         viewModelScope.launch {
             getTasksUseCase.getTasks()
-                .map { it.map { domain -> domain.toModel(cryptoLib) } }
+                .map { it.map { domain -> domain.toModel() } }
                 .flowOn(default)
                 .catch { Log.e("TASK", it.localizedMessage ?: "An error occurred!") }
                 .collect { _tasks.postValue(it) }

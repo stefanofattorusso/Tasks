@@ -1,5 +1,7 @@
 package ch.protonmail.android.protonmailtest.data.remote.model
 
+import ch.protonmail.android.crypto.CryptoLib
+import ch.protonmail.android.protonmailtest.commonandroid.encrypt
 import ch.protonmail.android.protonmailtest.data.local.entity.TaskEntity
 import com.google.gson.annotations.SerializedName
 import java.util.*
@@ -19,13 +21,13 @@ data class Task(
     val image: String?
 )
 
-fun Task.toEntity(): TaskEntity {
+fun Task.toEntity(cryptoLib: CryptoLib): TaskEntity {
     return TaskEntity(
         id = id ?: "",
-        creationDate = creationDate ?: "",
-        dueDate = dueDate ?: "",
+        creationDate = creationDate.encrypt(cryptoLib),
+        dueDate = dueDate.encrypt(cryptoLib),
         encryptedDescription = encryptedDescription ?: "",
         encryptedTitle = encryptedTitle ?: "",
-        image = image ?: ""
+        image = image.encrypt(cryptoLib),
     )
 }
