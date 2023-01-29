@@ -44,7 +44,9 @@ dependencies {
     implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
 
-    testImplementation 'junit:junit:4.13.2'
+    testImplementation "junit:junit:$junit_version"
+    testImplementation "io.mockk:mockk:$mockk_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
+    implementation "androidx.test:core-ktx:$androidXTestVersion"
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
