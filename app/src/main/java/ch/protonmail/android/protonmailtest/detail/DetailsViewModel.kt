@@ -26,7 +26,6 @@ class DetailsViewModel @Inject constructor(
     fun onDownloadImageClicked() {
         viewModelScope.launch {
             setImageDownloadedUseCase.setImageDownloaded(taskId)
-            retrieveTask(taskId)
         }
     }
 
@@ -46,7 +45,7 @@ class DetailsViewModel @Inject constructor(
     }
 
     sealed class ViewState {
-        object Loading: ViewState()
+        object Loading : ViewState()
         data class Success(val task: TaskModel) : ViewState()
         object Error : ViewState()
     }

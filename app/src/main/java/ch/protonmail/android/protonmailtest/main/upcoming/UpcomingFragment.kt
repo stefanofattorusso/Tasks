@@ -20,7 +20,6 @@ import ch.protonmail.android.protonmailtest.detail.DetailsFragment.Companion.TAS
 import ch.protonmail.android.protonmailtest.domain.model.TaskDomain
 import ch.protonmail.android.protonmailtest.main.MainViewModel
 import ch.protonmail.android.protonmailtest.main.TasksAdapter
-import ch.protonmail.android.protonmailtest.main.all.AllTasksViewModel
 import ch.protonmail.android.protonmailtest.main.model.TaskModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -71,7 +70,7 @@ class UpcomingFragment : Fragment() {
         }
         viewModel.viewInteraction.observe(viewLifecycleOwner) { interaction ->
             when (interaction) {
-                is AllTasksViewModel.ViewInteraction.TaskClicked -> navigateToTaskDetail(interaction.task)
+                is UpcomingTasksViewModel.ViewInteraction.TaskClicked -> navigateToTaskDetail(interaction.task)
             }
         }
     }
