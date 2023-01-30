@@ -7,7 +7,8 @@ import androidx.fragment.app.FragmentPagerAdapter
 import ch.protonmail.android.protonmailtest.main.all.AllTasksFragment
 import ch.protonmail.android.protonmailtest.main.upcoming.UpcomingFragment
 
-class TabsAdapter(val context: Context, fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager) {
+class TabsAdapter(val context: Context, fragmentManager: FragmentManager) :
+    FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
     override fun getItem(position: Int): Fragment {
         if (position == 0) {
             return AllTasksFragment()
@@ -15,8 +16,8 @@ class TabsAdapter(val context: Context, fragmentManager: FragmentManager) : Frag
         return UpcomingFragment()
     }
 
-    override fun getPageTitle(position: Int): CharSequence? {
-        return if (position == 0) "All" else "Upcoming"
+    override fun getPageTitle(position: Int): CharSequence {
+        return if (position == 0) "All Tasks" else "Upcoming"
     }
 
     override fun getCount(): Int {

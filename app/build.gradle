@@ -48,6 +48,9 @@ dependencies {
     implementation "com.google.dagger:hilt-android:$hilt_version"
 
     testImplementation "junit:junit:$junit_version"
+    testImplementation "io.mockk:mockk:$mockk_version"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
+    testImplementation "androidx.arch.core:core-testing:$androidXCore"
     androidTestImplementation 'androidx.test:runner:1.5.0-alpha04'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0-alpha07'
 }

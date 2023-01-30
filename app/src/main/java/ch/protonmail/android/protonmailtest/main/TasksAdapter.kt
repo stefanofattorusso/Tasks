@@ -36,7 +36,7 @@ class TasksAdapter : ListAdapter<TaskModel, TasksAdapter.TaskViewHolder>(TaskIte
                 creationDate.text = model.creationDate
                 dueDate.text = model.dueDate
                 if (model.imageDownloaded) {
-                    Glide.with(root.context).load(model.image).into(image)
+                    Glide.with(root.context).load(model.image).thumbnail(0.25f).into(image)
                 } else {
                     Glide.with(root.context).clear(image)
                 }

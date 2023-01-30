@@ -10,6 +10,9 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import ch.protonmail.android.protonmailtest.databinding.FragmentAllTasksBinding
 import ch.protonmail.android.protonmailtest.detail.DetailsActivity
@@ -20,6 +23,7 @@ import ch.protonmail.android.protonmailtest.main.TasksAdapter
 import ch.protonmail.android.protonmailtest.main.model.TaskModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class AllTasksFragment : Fragment() {
@@ -50,10 +54,15 @@ class AllTasksFragment : Fragment() {
     }
 
     private fun observeData() {
-        mainViewModel.viewState.observe(viewLifecycleOwner) { state ->
-            when (state) {
-                is MainViewModel.ViewState.Success -> handleSuccessState(state.data)
-                is MainViewModel.ViewState.Error -> handleErrorState()
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                mainViewModel.viewState.collect { state ->
+                    when (state) {
+                        is MainViewModel.ViewState.Success -> handleSuccessState(state.data)
+                        is MainViewModel.ViewState.Error -> handleErrorState()
+                        else -> Unit
+                    }
+                }
             }
         }
         viewModel.tasks.observe(viewLifecycleOwner) { list ->
