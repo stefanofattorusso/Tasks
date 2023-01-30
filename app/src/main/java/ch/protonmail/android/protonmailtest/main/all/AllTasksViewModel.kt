@@ -24,7 +24,7 @@ class AllTasksViewModel @Inject constructor() : ViewModel() {
 
     fun setData(data: List<TaskDomain>) {
         viewModelScope.launch(context = Dispatchers.Default) {
-            _tasks.postValue(data.map { task -> task.toModel() })
+            _tasks.postValue(data.sortedBy { task -> task.creationDate }.map { task -> task.toModel() })
         }
     }
 
@@ -33,6 +33,6 @@ class AllTasksViewModel @Inject constructor() : ViewModel() {
     }
 
     sealed class ViewInteraction {
-        data class TaskClicked(val task: TaskModel): ViewInteraction()
+        data class TaskClicked(val task: TaskModel) : ViewInteraction()
     }
 }

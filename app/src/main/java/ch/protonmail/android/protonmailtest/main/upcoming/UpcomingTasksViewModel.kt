@@ -26,7 +26,7 @@ class UpcomingTasksViewModel @Inject constructor() : ViewModel() {
 
     fun setData(data: List<TaskDomain>) {
         viewModelScope.launch(context = Dispatchers.Default) {
-            val filtered = data.filter { task -> task.dueDate.after(Date()) }
+            val filtered = data.filter { task -> task.dueDate.after(Date()) }.sortedBy { task -> task.dueDate }
             _tasks.postValue(filtered.map { task -> task.toModel() })
         }
     }
