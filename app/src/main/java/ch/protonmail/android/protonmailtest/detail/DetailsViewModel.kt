@@ -1,5 +1,6 @@
 package ch.protonmail.android.protonmailtest.detail
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ch.protonmail.android.protonmailtest.domain.usecase.GetTaskUseCase
@@ -14,6 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DetailsViewModel @Inject constructor(
+    private val savedStateHandle: SavedStateHandle,
     private val getTaskUseCase: GetTaskUseCase,
     private val setImageDownloadedUseCase: SetImageDownloadedUseCase,
 ) : ViewModel() {
@@ -21,7 +23,7 @@ class DetailsViewModel @Inject constructor(
     private val _viewState = MutableStateFlow<ViewState>(ViewState.Loading)
     val viewState: StateFlow<ViewState> = _viewState.asStateFlow()
 
-    private lateinit var taskId: String
+    private val taskId: String by lazy { savedStateHandle.get<String>(TASK_ID) ?: "" }
 
     fun onDownloadImageClicked() {
         viewModelScope.launch {
@@ -29,9 +31,8 @@ class DetailsViewModel @Inject constructor(
         }
     }
 
-    fun setId(id: String) {
-        taskId = id
-        retrieveTask(id)
+    init {
+        retrieveTask(taskId)
     }
 
     private fun retrieveTask(id: String) {
@@ -48,5 +49,9 @@ class DetailsViewModel @Inject constructor(
         object Loading : ViewState()
         data class Success(val task: TaskModel) : ViewState()
         object Error : ViewState()
+    }
+
+    companion object {
+        const val TASK_ID = "ID"
     }
 }

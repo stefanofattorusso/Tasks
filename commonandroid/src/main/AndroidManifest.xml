@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest>
-
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="ch.protonmail.android.protonmailtest.commonandroid">
+    <application>
+        <activity
+            android:name="ch.protonmail.android.protonmailtest.commonandroid.HiltTestActivity"
+            android:exported="false" />
+    </application>
 </manifest>

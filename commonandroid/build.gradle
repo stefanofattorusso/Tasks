@@ -2,6 +2,7 @@ plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -20,4 +21,9 @@ dependencies {
     api files('../libs/crypto.aar')
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
+    implementation "androidx.appcompat:appcompat:$androidx_appcompat_version"
+
+    debugImplementation "androidx.fragment:fragment-testing:$androidx_fragment_version"
+    implementation "com.google.dagger:hilt-android-testing:$hilt_version"
+    implementation "androidx.test.espresso:espresso-core:$espresso_version"
 }

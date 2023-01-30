@@ -16,7 +16,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import ch.protonmail.android.protonmailtest.databinding.FragmentUpcomingBinding
 import ch.protonmail.android.protonmailtest.detail.DetailsActivity
-import ch.protonmail.android.protonmailtest.detail.DetailsFragment.Companion.TASK_ID
+import ch.protonmail.android.protonmailtest.detail.DetailsViewModel.Companion.TASK_ID
 import ch.protonmail.android.protonmailtest.domain.model.TaskDomain
 import ch.protonmail.android.protonmailtest.main.MainViewModel
 import ch.protonmail.android.protonmailtest.main.TasksAdapter

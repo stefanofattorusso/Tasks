@@ -5,7 +5,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
 import ch.protonmail.android.protonmailtest.R
-import ch.protonmail.android.protonmailtest.detail.DetailsFragment.Companion.TASK_ID
+import ch.protonmail.android.protonmailtest.detail.DetailsViewModel.Companion.TASK_ID
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

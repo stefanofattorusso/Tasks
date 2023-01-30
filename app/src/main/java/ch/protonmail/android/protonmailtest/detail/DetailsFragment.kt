@@ -25,12 +25,6 @@ class DetailsFragment : Fragment() {
 
     private val viewModel: DetailsViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val taskId = arguments?.getString(TASK_ID)
-        taskId?.let { id -> viewModel.setId(id) } ?: activity?.finish()
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return binding.root
     }
@@ -76,9 +70,5 @@ class DetailsFragment : Fragment() {
 
     private fun handleErrorState() {
         Snackbar.make(binding.root, getString(R.string.generic_error), Snackbar.LENGTH_LONG).show()
-    }
-
-    companion object {
-        const val TASK_ID = "ID"
     }
 }
