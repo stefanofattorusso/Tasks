@@ -1,7 +1,6 @@
 package ch.protonmail.android.protonmailtest.data.di
 
 import android.content.Context
-import androidx.room.Room
 import ch.protonmail.android.protonmailtest.data.local.dao.TaskDao
 import ch.protonmail.android.protonmailtest.data.local.database.TaskDatabase
 import dagger.Module
@@ -21,10 +20,6 @@ class DatabaseModule {
 
     @Provides
     fun provideDatabase(@ApplicationContext context: Context): TaskDatabase {
-        return Room.databaseBuilder(
-            context,
-            TaskDatabase::class.java,
-            "task-database"
-        ).fallbackToDestructiveMigration().build()
+        return TaskDatabase.getInstance(context)
     }
 }

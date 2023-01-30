@@ -11,10 +11,11 @@ import ch.protonmail.android.protonmailtest.domain.repository.TaskRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class TaskRepositoryImpl @Inject constructor(
-    @IoDispatcher private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
+    @IoDispatcher private val io: CoroutineDispatcher = Dispatchers.IO,
     private val networkSource: TaskNetworkDataSource,
     private val localSource: TaskLocalDataSource,
     private val cryptoLib: CryptoLib,
@@ -23,7 +24,7 @@ class TaskRepositoryImpl @Inject constructor(
     override fun getTask(id: String): Flow<TaskDomain> {
         return localSource.getTask(id)
             .map { task -> task.toDomain(cryptoLib) }
-            .flowOn(ioDispatcher)
+            .flowOn(Dispatchers.Default)
     }
 
     override fun getTasks(): Flow<List<TaskDomain>> {
@@ -38,10 +39,12 @@ class TaskRepositoryImpl @Inject constructor(
             }
             .distinctUntilChanged()
             .map { list -> list.map { task -> task.toDomain(cryptoLib) } }
-            .flowOn(ioDispatcher)
+            .flowOn(io)
     }
 
     override suspend fun setImageDownloaded(id: String) {
-        localSource.setImageDownloaded(id)
+        withContext(io) {
+            localSource.setImageDownloaded(id)
+        }
     }
 }

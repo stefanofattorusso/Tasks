@@ -7,12 +7,16 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import ch.protonmail.android.protonmailtest.R
 import ch.protonmail.android.protonmailtest.databinding.FragmentDetailsBinding
 import ch.protonmail.android.protonmailtest.main.model.TaskModel
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class DetailsFragment : Fragment() {
@@ -42,10 +46,15 @@ class DetailsFragment : Fragment() {
     }
 
     private fun observeData() {
-        viewModel.viewState.observe(viewLifecycleOwner) { state ->
-            when (state) {
-                is DetailsViewModel.ViewState.Success -> handleSuccess(state.task)
-                is DetailsViewModel.ViewState.Error -> handleErrorState()
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.viewState.collect { state ->
+                    when (state) {
+                        is DetailsViewModel.ViewState.Success -> handleSuccess(state.task)
+                        is DetailsViewModel.ViewState.Error -> handleErrorState()
+                        else -> Unit
+                    }
+                }
             }
         }
     }

@@ -16,7 +16,7 @@ interface TaskDao {
     @Query("SELECT * FROM task")
     fun getAll(): Flow<List<TaskEntity>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertAll(monthEntities: List<TaskEntity>)
 
     @Query("UPDATE task SET imageDownloaded = 1 WHERE id = :id")
